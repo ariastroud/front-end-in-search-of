@@ -10,6 +10,9 @@ const NavBar = () => {
           <Link to="/newpostform">Post Now</Link>
         </li>
         <li>
+          <Link to="/itemslist">Items</Link>
+        </li>
+        <li>
           <Link to="/login">Login</Link>
         </li>
       </ul>
