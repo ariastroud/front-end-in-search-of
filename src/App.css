@@ -38,6 +38,9 @@
 } */
 
 .loginButton {
-  display: flex;
-  justify-content: center;
+  text-align: center;
+}
+
+.main {
+  text-align: center;
 }
