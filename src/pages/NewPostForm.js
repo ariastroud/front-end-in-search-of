@@ -1,5 +1,14 @@
 import React from "react";
+import axios from "axios";
 import { useState } from "react";
+
+const addPostApi = async (postData) => {
+  const response = await axios.post(
+    `http://127.0.0.1:5000/users/${postData.userId}/items`,
+    postData
+  );
+  console.log(response);
+};
 
 const NewPostForm = ({ loginData }) => {
   const [image, setImage] = useState("");
@@ -25,7 +34,7 @@ const NewPostForm = ({ loginData }) => {
     e.preventDefault();
 
     console.log(postData);
-    // addPostCallback(postData);
+    addPostApi(postData);
     setPostData({
       title: "",
       brand: "",
