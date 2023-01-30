@@ -2,6 +2,8 @@
 // import axios from "axios";
 // import { useState } from "react";
 
+import { useEffect } from "react";
+
 const Login = (props) => {
   // const [loginData, setLoginData] = useState("");
 
@@ -37,10 +39,23 @@ const Login = (props) => {
   //   console.log(userData);
   //   setLoginData(userData);
   // };
+  // useEffect(() => {
+  //   if (!props.loginData) {
+  //     console.log("not logged in");
+  //   }
+  // }, []);
 
   return (
     <div>
-      <button onClick={() => props.login()}>Sign in With Google</button>
+      {/* <form>
+        <label htmlFor="name">Name</label>
+        <input name="name" id="name"></input>
+      </form> */}
+      {!props.loginData ? (
+        <button onClick={() => props.login()}>Sign in With Google</button>
+      ) : (
+        <p>ur signed in</p>
+      )}
     </div>
   );
 };
