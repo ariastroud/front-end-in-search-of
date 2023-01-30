@@ -66,14 +66,14 @@ function App() {
       });
   };
 
-  // useEffect(() => {
-  //   getAllItems();
-  // }, []);
+  useEffect(() => {
+    getAllItems();
+  }, []);
 
-  // const getAllItems = async () => {
-  //   const items = await getAllItemsApi();
-  //   setAllItemData(items);
-  // };
+  const getAllItems = async () => {
+    const items = await getAllItemsApi();
+    setAllItemData(items);
+  };
 
   return (
     <div>
@@ -171,16 +171,16 @@ function App() {
         </nav>
       </div>
       {/* <NavBar /> */}
-      <div className="container">
+      <div className="container py-3">
         {/* <button onClick={handleLogout}>Log out</button> */}
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route
+          <Route
             path="/itemslist"
             element={
               <ItemsList getAllItems={getAllItems} allItemData={allItemData} />
             }
-          /> */}
+          />
           {/* <Route
             path="/login"
             element={<Login loginData={loginData} login={login} />}
