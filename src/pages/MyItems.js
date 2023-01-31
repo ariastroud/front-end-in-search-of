@@ -1,11 +1,11 @@
-const ItemsList = (props) => {
+const MyItems = (props) => {
   return (
     <div className="container py-3">
       <div className="card-deck row row-cols-md-4">
-        {props.allItemData.map((item) => (
+        {props.itemsByUser.map((item) => (
           <div className="col mb-5" key={item.id}>
             <div className="card h-100" style={{ width: "18rem" }}>
-              <img src={item.file} class="card-img-top" alt="..." />
+              <img src={item.file} className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{item.title}</h5>
               </div>
@@ -30,4 +30,4 @@ const ItemsList = (props) => {
   );
 };
 
-export default ItemsList;
+export default MyItems;

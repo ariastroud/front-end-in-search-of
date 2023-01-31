@@ -1,6 +1,4 @@
-// import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
 import NewPostForm from "./pages/NewPostForm";
 import ItemsList from "./pages/ItemsList";
 import Item from "./pages/Item";
@@ -8,13 +6,27 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { googleLogout, useGoogleLogin, GoogleLogin } from "@react-oauth/google";
-import NavBar from "./components/NavBar";
+import { useGoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
+import MyItems from "./pages/MyItems";
+import SideNav from "./components/SideNav";
 
 const getAllItemsApi = async () => {
   const response = await axios.get("http://localhost:5000/items");
   return response.data;
+};
+
+const getAllItemsByUserApi = async (id) => {
+  const response = await axios.get(`http://127.0.0.1:5000/users/${id}/items`);
+  return response.data;
+};
+
+const addPostApi = async (postData) => {
+  const response = await axios.post(
+    `http://127.0.0.1:5000/users/${postData.userId}/items`,
+    postData
+  );
+  return response;
 };
 
 function App() {
@@ -24,6 +36,17 @@ function App() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
+  const [itemsByUser, setItemsByUser] = useState([]);
+
+  const addPostCallBack = async (postData) => {
+    const response = await addPostApi(postData);
+    const newPost = [...allItemData];
+    const newPostUser = [...itemsByUser];
+    newPost.push({ ...response.data.item });
+    newPostUser.push({ ...response.data.item });
+    setAllItemData(newPost);
+    setItemsByUser(newPostUser);
+  };
 
   const login = useGoogleLogin({
     onSuccess: async (response) => {
@@ -40,9 +63,6 @@ function App() {
         const name = res.data.name;
         const email = res.data.email;
         const userDataLogin = await addUser(name, email);
-        // await changeLoginUser(userDataLogin);
-        // setLoginData(userDataLogin);
-        // localStorage.setItem("email", userDataLogin.email);
         const data = await userDataLogin;
         setLoginData(data);
         localStorage.setItem("loginData", JSON.stringify(data));
@@ -68,6 +88,7 @@ function App() {
 
   useEffect(() => {
     getAllItems();
+    getAllItemsByUser();
   }, []);
 
   const getAllItems = async () => {
@@ -75,15 +96,19 @@ function App() {
     setAllItemData(items);
   };
 
+  const getAllItemsByUser = async () => {
+    const userId = loginData.id;
+    const items = await getAllItemsByUserApi(userId);
+    setItemsByUser(items);
+  };
+
   return (
     <div>
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 py-2">
-          <li className="navbar-brand">
-            <Link to="/" className="link-dark text-decoration-none">
-              In Search Of
-            </Link>
-          </li>
+          <Link to="/" className="link-dark text-decoration-none navbar-brand">
+            In Search Of
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -97,39 +122,27 @@ function App() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
+            <form className="form-inline my-2 my-lg-0">
+              <input
+                className="form-control mr-sm-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button
+                className="btn btn-outline-success my-2 my-sm-0"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+            <ul className="navbar-nav mr-auto"></ul>
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <Link to="/itemsList" className="nav-link">
                   All Items
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/itemsList" className="nav-link">
-                  Search
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/newpostform" className="nav-link">
-                  Post Now
-                </Link>
-              </li>
-              {/* <li>
-              <form className="form-inline my-2 my-lg-0">
-                <label htmlFor="name"></label>
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button
-                  className="btn btn-outline-success my-2 my-sm-0"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </form>
-            </li> */}
             </ul>
             {!loginData ? (
               <button
@@ -137,17 +150,18 @@ function App() {
                 className="btn btn-outline-success my-2 my-sm-0"
                 // type="submit"
               >
-                {/* <Link to="/login" className="nav-link">
-                  Sign In
-                </Link> */}
                 Sign In
               </button>
             ) : (
               <ul className="navbar-nav">
-                {/* <li className="nav-item">Welcome, {loginData.name}</li> */}
                 <li className="nav-item">
-                  <Link to="/itemsList" className="nav-link">
+                  <Link to="/myitems" className="nav-link">
                     My Items
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/newpostform" className="nav-link">
+                    Post Now
                   </Link>
                 </li>
                 <button
@@ -159,20 +173,11 @@ function App() {
                 </button>
               </ul>
             )}
-            {/* <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              // type="submit"
-            >
-              <Link to="/login" className="nav-link">
-                Sign In
-              </Link>
-            </button> */}
           </div>
         </nav>
       </div>
-      {/* <NavBar /> */}
-      <div className="container py-3">
-        {/* <button onClick={handleLogout}>Log out</button> */}
+
+      <div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -181,15 +186,21 @@ function App() {
               <ItemsList getAllItems={getAllItems} allItemData={allItemData} />
             }
           />
-          {/* <Route
-            path="/login"
-            element={<Login loginData={loginData} login={login} />}
-          /> */}
           <Route path="/items/:id" element={<Item />} />
           <Route
             path="/newpostform"
-            element={<NewPostForm loginData={loginData} />}
+            element={
+              <NewPostForm
+                loginData={loginData}
+                addPostCallBack={addPostCallBack}
+              />
+            }
           />
+          <Route
+            path="/myitems"
+            element={<MyItems itemsByUser={itemsByUser} />}
+          ></Route>
+          <Route path="/test" element={<SideNav />}></Route>
         </Routes>
       </div>
     </div>
