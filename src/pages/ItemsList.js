@@ -5,7 +5,7 @@ const ItemsList = (props) => {
         {props.allItemData.map((item) => (
           <div className="col mb-5" key={item.id}>
             <div className="card h-100" style={{ width: "18rem" }}>
-              <img src={item.file} class="card-img-top" alt="..." />
+              <img src={item.file} className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{item.title}</h5>
               </div>

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import NewPostForm from "./pages/NewPostForm";
 import ItemsList from "./pages/ItemsList";
 import Item from "./pages/Item";
@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useGoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
 import MyItems from "./pages/MyItems";
-import SideNav from "./components/SideNav";
+import SearchResults from "./pages/SearchResults";
 
 const getAllItemsApi = async () => {
   const response = await axios.get("http://localhost:5000/items");
@@ -29,6 +29,13 @@ const addPostApi = async (postData) => {
   return response;
 };
 
+const searchApi = async (searchParams) => {
+  const response = await axios.get("http://localhost:5000/items/search", {
+    params: { title: searchParams },
+  });
+  return response.data;
+};
+
 function App() {
   const [allItemData, setAllItemData] = useState([]);
   const [loginData, setLoginData] = useState(
@@ -37,6 +44,18 @@ function App() {
       : null
   );
   const [itemsByUser, setItemsByUser] = useState([]);
+  const [searchString, setSearchString] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
+
+  const submitSearch = async (e) => {
+    e.preventDefault();
+
+    const results = await searchApi(searchString);
+    setSearchResults(results);
+    navigate("/search");
+    setSearchString("");
+  };
 
   const addPostCallBack = async (postData) => {
     const response = await addPostApi(postData);
@@ -88,7 +107,7 @@ function App() {
 
   useEffect(() => {
     getAllItems();
-    getAllItemsByUser();
+    // getAllItemsByUser();
   }, []);
 
   const getAllItems = async () => {
@@ -128,8 +147,12 @@ function App() {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                onChange={(e) => setSearchString(e.target.value)}
+                name="search"
+                value={searchString}
               />
               <button
+                onClick={submitSearch}
                 className="btn btn-outline-success my-2 my-sm-0"
                 type="submit"
               >
@@ -139,7 +162,12 @@ function App() {
             <ul className="navbar-nav mr-auto"></ul>
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link to="/itemsList" className="nav-link">
+                <Link
+                  to="/itemsList"
+                  className="nav-link"
+                  // onClick={() => getAllItemsByUser()}
+                  // onClick={getAllItemsByUser}
+                >
                   All Items
                 </Link>
               </li>
@@ -155,7 +183,11 @@ function App() {
             ) : (
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link to="/myitems" className="nav-link">
+                  <Link
+                    to="/myitems"
+                    className="nav-link"
+                    onClick={getAllItemsByUser}
+                  >
                     My Items
                   </Link>
                 </li>
@@ -200,7 +232,10 @@ function App() {
             path="/myitems"
             element={<MyItems itemsByUser={itemsByUser} />}
           ></Route>
-          <Route path="/test" element={<SideNav />}></Route>
+          <Route
+            path="/search"
+            element={<SearchResults searchResults={searchResults} />}
+          ></Route>
         </Routes>
       </div>
     </div>
