@@ -128,7 +128,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
             onChange={handleChange}
             name="description"
             value={postData.description}
-            placeholder="Describe what you're looking for! You can include the color, size, condition, style an any other details. "
+            placeholder="Describe what you're looking for! You can include the color, size, condition, style and any other details. "
           ></textarea>
         </div>
         <div className="form-group">

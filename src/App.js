@@ -10,8 +10,6 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
 import MyItems from "./pages/MyItems";
 import SearchResults from "./pages/SearchResults";
-import SideNav from "./components/SideNav";
-import Filter from "./components/Filter";
 
 const getAllItemsApi = async () => {
   const response = await axios.get("http://localhost:5000/items");
@@ -39,34 +37,34 @@ const searchApi = async (searchParams) => {
 };
 
 function App() {
-  const [allItemData, setAllItemData] = useState([]);
+  const [items, setItems] = useState([]);
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
-  const [itemsByUser, setItemsByUser] = useState([]);
   const [searchString, setSearchString] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   const submitSearch = async (e) => {
     e.preventDefault();
 
     const results = await searchApi(searchString);
-    setSearchResults(results);
+    setItems(results);
     navigate("/search");
-    setSearchString("");
+    // setSearchString("");
+  };
+
+  const filterCallback = (filteredArray) => {
+    setItems(filteredArray);
   };
 
   const addPostCallBack = async (postData) => {
     const response = await addPostApi(postData);
-    const newPost = [...allItemData];
-    const newPostUser = [...itemsByUser];
+    const newPost = [...items];
     newPost.push({ ...response.data.item });
-    newPostUser.push({ ...response.data.item });
-    setAllItemData(newPost);
-    setItemsByUser(newPostUser);
+
+    setItems(newPost);
   };
 
   const login = useGoogleLogin({
@@ -109,18 +107,17 @@ function App() {
 
   useEffect(() => {
     getAllItems();
-    // getAllItemsByUser();
   }, []);
 
   const getAllItems = async () => {
     const items = await getAllItemsApi();
-    setAllItemData(items);
+    setItems(items);
   };
 
   const getAllItemsByUser = async () => {
     const userId = loginData.id;
     const items = await getAllItemsByUserApi(userId);
-    setItemsByUser(items);
+    setItems(items);
   };
 
   return (
@@ -165,10 +162,9 @@ function App() {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <Link
-                  to="/itemsList"
+                  to="/itemslist"
                   className="nav-link"
-                  // onClick={() => getAllItemsByUser()}
-                  // onClick={getAllItemsByUser}
+                  onClick={getAllItems}
                 >
                   All Items
                 </Link>
@@ -178,7 +174,6 @@ function App() {
               <button
                 onClick={() => login()}
                 className="btn btn-outline-success my-2 my-sm-0"
-                // type="submit"
               >
                 Sign In
               </button>
@@ -186,7 +181,7 @@ function App() {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link
-                    to="/myitems"
+                    to="/itemslist"
                     className="nav-link"
                     onClick={getAllItemsByUser}
                   >
@@ -201,7 +196,6 @@ function App() {
                 <button
                   onClick={() => handleLogout()}
                   className="btn btn-outline-success my-2 my-sm-0"
-                  // type="submit"
                 >
                   Sign Out
                 </button>
@@ -217,7 +211,7 @@ function App() {
           <Route
             path="/itemslist"
             element={
-              <ItemsList getAllItems={getAllItems} allItemData={allItemData} />
+              <ItemsList items={items} filterCallback={filterCallback} />
             }
           />
           <Route path="/items/:id" element={<Item />} />
@@ -230,20 +224,26 @@ function App() {
               />
             }
           />
-          <Route
+          {/* <Route
             path="/myitems"
             element={<MyItems itemsByUser={itemsByUser} />}
-          ></Route>
+          ></Route> */}
           <Route
             path="/search"
-            element={<SearchResults searchResults={searchResults} />}
+            element={
+              <SearchResults
+                filterCallback={filterCallback}
+                items={items}
+                searchString={searchString}
+              />
+            }
           ></Route>
-          <Route
+          {/* <Route
             path="/test"
             element={
               <SideNav getAllItems={getAllItems} allItemData={allItemData} />
             }
-          ></Route>
+          ></Route> */}
         </Routes>
       </div>
     </div>

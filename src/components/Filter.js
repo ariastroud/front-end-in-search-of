@@ -7,18 +7,31 @@ const filterItemsApi = async (filterData) => {
   return results.data;
 };
 
+const searchFilterApi = async (filterData, searchFilter) => {
+  const results = await axios.get("http://localhost:5000/items/search", {
+    params: {
+      title: searchFilter,
+      filter: filterData,
+    },
+  });
+  return results.data;
+};
+
 const Filter = (props) => {
   const handleChange = async (e) => {
     const filterData = e.target.value;
-    console.log(filterData);
-    const results = await filterItemsApi(filterData);
-    props.filterCallback(results, filterData);
+    if (props.searchFilter) {
+      const results = await searchFilterApi(filterData, props.searchFilter);
+      props.filterCallback(results);
+    } else {
+      const results = await filterItemsApi(filterData);
+      props.filterCallback(results);
+    }
   };
 
   return (
     <div className="py-3">
       <div className="row">
-        {/* <div className="col-2 px-3 py-2"> */}
         <h6 className="px-3 py-2">Filter</h6>
         <hr className="border-2 border-top border-secondary" />
         <form className="px-3 py-2">
