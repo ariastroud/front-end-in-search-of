@@ -10,6 +10,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
 import MyItems from "./pages/MyItems";
 import SearchResults from "./pages/SearchResults";
+import SideNav from "./components/SideNav";
+import Filter from "./components/Filter";
 
 const getAllItemsApi = async () => {
   const response = await axios.get("http://localhost:5000/items");
@@ -235,6 +237,12 @@ function App() {
           <Route
             path="/search"
             element={<SearchResults searchResults={searchResults} />}
+          ></Route>
+          <Route
+            path="/test"
+            element={
+              <SideNav getAllItems={getAllItems} allItemData={allItemData} />
+            }
           ></Route>
         </Routes>
       </div>

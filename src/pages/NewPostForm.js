@@ -7,7 +7,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
   const [postData, setPostData] = useState({
     title: "",
     brand: "",
-    category: "",
+    category: "Choose category...",
     size: "Choose size...",
     description: "",
     file: "",
@@ -85,16 +85,21 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="exampleFormControlInput1">Category</label>
-          <input
-            type="text"
+          <label htmlFor="exampleFormControlSelect1">Category</label>
+          <select
             className="form-control"
-            id="exampleFormControlInput1"
+            id="exampleFormControlSelect1"
             onChange={handleChange}
             name="category"
             value={postData.category}
-            placeholder="name@example.com"
-          />
+          >
+            <option disabled>Choose category...</option>
+            <option>Clothing</option>
+            <option>Handbags</option>
+            <option>Jewelry</option>
+            <option>Accessories</option>
+            <option>Shoes</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="exampleFormControlSelect1">Size</label>

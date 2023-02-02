@@ -1,56 +1,80 @@
-const SideNav = () => {
+import { useState } from "react";
+import Filter from "./Filter";
+
+const SideNav = (props) => {
+  const [filteredItems, setFilteredItems] = useState([]);
+
+  const filterCallback = (filteredArray) => {
+    setFilteredItems(filteredArray);
+  };
+
   return (
-    <div className="w-25 p-3 bg-dark text-white">
-      <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
-      <h5>Filter</h5>
-      <h6>Size</h6>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="exampleRadios"
-          id="exampleRadios1"
-          value="option1"
-          checked
-        />
-        <label class="form-check-label" for="exampleRadios1">
-          XS (0-2)
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="exampleRadios"
-          id="exampleRadios2"
-          value="option2"
-        />
-        <label class="form-check-label" for="exampleRadios2">
-          Second default radio
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="exampleRadios"
-          id="exampleRadios3"
-          value="option3"
-          disabled
-        />
-        <label class="form-check-label" for="exampleRadios3">
-          Disabled radio
-        </label>
+    <div className="py-3">
+      <div className="row">
+        <div className="col-2 px-3 py-2">
+          <Filter filterCallback={filterCallback} />
+        </div>
+        {filteredItems.length > 0 ? (
+          <div className="col-10 px-3 py-2">
+            <div className="card-deck row-cols-md-3">
+              {filteredItems.map((item) => (
+                <div className="col mb-5" key={item.id}>
+                  <div className="card h-100" style={{ width: "18rem" }}>
+                    <img src={item.file} className="card-img-top" alt="..." />
+                    <div className="card-body">
+                      <h5 className="card-title">{item.title}</h5>
+                    </div>
+                    <ul className="list-group list-group-flush">
+                      <li className="list-group-item">Brand: {item.brand}</li>
+                      <li className="list-group-item">Size: {item.size}</li>
+                      <li className="list-group-item">
+                        Category: {item.category}
+                      </li>
+                    </ul>
+                    <div className="card-body">
+                      <a href="google.com" className="card-link">
+                        See More
+                      </a>
+                      <a href="google.com" className="card-link">
+                        Message {item.user}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="col-10 px-3 py-2">
+            <div className="card-deck row-cols-md-3">
+              {props.allItemData.map((item) => (
+                <div className="col mb-5" key={item.id}>
+                  <div className="card h-100" style={{ width: "18rem" }}>
+                    <img src={item.file} className="card-img-top" alt="..." />
+                    <div className="card-body">
+                      <h5 className="card-title">{item.title}</h5>
+                    </div>
+                    <ul className="list-group list-group-flush">
+                      <li className="list-group-item">Brand: {item.brand}</li>
+                      <li className="list-group-item">Size: {item.size}</li>
+                      <li className="list-group-item">
+                        Category: {item.category}
+                      </li>
+                    </ul>
+                    <div className="card-body">
+                      <a href="google.com" className="card-link">
+                        See More
+                      </a>
+                      <a href="google.com" className="card-link">
+                        Message {item.user}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
