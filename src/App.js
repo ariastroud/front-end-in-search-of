@@ -1,14 +1,15 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import NewPostForm from "./pages/NewPostForm";
 import ItemsList from "./pages/ItemsList";
-import Item from "./pages/Item";
+// import Item from "./pages/Item";
+import Item from "./components/Item";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useGoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
-import MyItems from "./pages/MyItems";
+// import MyItems from "./pages/MyItems";
 import SearchResults from "./pages/SearchResults";
 
 const getAllItemsApi = async () => {
@@ -211,10 +212,14 @@ function App() {
           <Route
             path="/itemslist"
             element={
-              <ItemsList items={items} filterCallback={filterCallback} />
+              <ItemsList
+                items={items}
+                filterCallback={filterCallback}
+                loginData={loginData}
+              />
             }
           />
-          <Route path="/items/:id" element={<Item />} />
+          <Route path="/itemslist/:id" element={<Item />} />
           <Route
             path="/newpostform"
             element={

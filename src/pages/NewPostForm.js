@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const NewPostForm = ({ loginData, addPostCallBack }) => {
   const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [postData, setPostData] = useState({
     title: "",
     brand: "",
@@ -41,7 +41,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
     const data = new FormData();
     data.append("file", files[0]);
     data.append("upload_preset", "insearchof");
-    setLoading(true);
+    // setLoading(true);
 
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/damq79nod/image/upload",
@@ -52,7 +52,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
     );
     const file = await res.json();
     setImage(file.secure_url);
-    setLoading(false);
+    // setLoading(false);
     setPostData({ ...postData, [e.target.name]: file.secure_url });
   };
 
