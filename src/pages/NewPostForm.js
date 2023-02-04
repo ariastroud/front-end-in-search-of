@@ -97,7 +97,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
             <option>Clothing</option>
             <option>Handbags</option>
             <option>Jewelry</option>
-            <option>Accessories</option>
+            {/* <option>Accessories</option> */}
             <option>Shoes</option>
           </select>
         </div>
@@ -111,6 +111,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
             value={postData.size}
           >
             <option disabled>Choose size...</option>
+            <option>N/A</option>
             <option>XS (0-2)</option>
             <option>S (4-6)</option>
             <option>M (8-10)</option>

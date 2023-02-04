@@ -43,6 +43,19 @@ const Filter = (props) => {
               name="filterRadio"
               id="xsRadio"
               onChange={handleChange}
+              value="none"
+            />
+            <label className="form-check-label" htmlFor="flexRadioDefault1">
+              N/A
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="filterRadio"
+              id="xsRadio"
+              onChange={handleChange}
               value="xs"
             />
             <label className="form-check-label" htmlFor="flexRadioDefault1">
@@ -72,7 +85,7 @@ const Filter = (props) => {
               value="m"
             />
             <label className="form-check-label" htmlFor="flexRadioDefault1">
-              M (6-8)
+              M (8-10)
             </label>
           </div>
           <div className="form-check">
@@ -85,7 +98,7 @@ const Filter = (props) => {
               value="l"
             />
             <label className="form-check-label" htmlFor="flexRadioDefault1">
-              L (8-10)
+              L (12-14)
             </label>
           </div>
           <div className="form-check">
@@ -155,7 +168,7 @@ const Filter = (props) => {
               Jewelry
             </label>
           </div>
-          <div className="form-check">
+          {/* <div className="form-check">
             <input
               className="form-check-input"
               type="radio"
@@ -167,7 +180,7 @@ const Filter = (props) => {
             <label className="form-check-label" htmlFor="flexRadioDefault1">
               Accessories
             </label>
-          </div>
+          </div> */}
           <div className="form-check">
             <input
               className="form-check-input"

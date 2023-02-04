@@ -52,6 +52,7 @@ function App() {
 
     const results = await searchApi(searchString);
     setItems(results);
+    // console.log(results);
     navigate("/search");
     // setSearchString("");
   };
@@ -240,6 +241,7 @@ function App() {
                 filterCallback={filterCallback}
                 items={items}
                 searchString={searchString}
+                loginData={loginData}
               />
             }
           ></Route>

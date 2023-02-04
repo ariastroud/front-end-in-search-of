@@ -23,7 +23,7 @@ const ItemCard = ({ items, loginData }) => {
                 {/* <a href="google.com" className="card-link">
                   See More
                 </a> */}
-                <Link to={`${item.id}`}>Click</Link>
+                {/* <Link to={`${item.id}`}>Click</Link> */}
                 {/* <Link to={item.id}>Click</Link> */}
 
                 {/* {loginData.id === item.user_id ? (
