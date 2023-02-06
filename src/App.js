@@ -47,6 +47,28 @@ function App() {
   const [searchString, setSearchString] = useState("");
   const navigate = useNavigate();
 
+  const markFoundApi = async (id) => {
+    // console.log(id);
+    const response = await axios.patch(
+      `http://127.0.0.1:5000/items/${id}/mark_found`
+    );
+    console.log(response.data.item);
+    return response.data.item;
+  };
+
+  const updateItem = async (id) => {
+    const newItem = await markFoundApi(id);
+    setItems((oldItems) => {
+      return oldItems.map((item) => {
+        if (item.id === newItem.id) {
+          return newItem;
+        } else {
+          return item;
+        }
+      });
+    });
+  };
+
   const submitSearch = async (e) => {
     e.preventDefault();
 
@@ -217,6 +239,8 @@ function App() {
                 items={items}
                 filterCallback={filterCallback}
                 loginData={loginData}
+                searchString={searchString}
+                updateItem={updateItem}
               />
             }
           />

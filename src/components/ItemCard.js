@@ -1,7 +1,8 @@
 import Item from "./Item";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const ItemCard = ({ items, loginData }) => {
+const ItemCard = ({ items, loginData, updateItem }) => {
   // console.log(loginData.id);
   if (loginData.id)
     return (
@@ -26,23 +27,45 @@ const ItemCard = ({ items, loginData }) => {
                 {/* <Link to={`${item.id}`}>Click</Link> */}
                 {/* <Link to={item.id}>Click</Link> */}
 
-                {/* {loginData.id === item.user_id ? (
-                  <button className="btn btn-info btn-xs card-link">
+                {loginData.id === item.user_id && !item.found ? (
+                  <button
+                    onClick={() => updateItem(item.id)}
+                    className="btn btn-info btn-xs card-link"
+                  >
                     Mark Found
                   </button>
                 ) : (
                   <></>
-                )} */}
+                )}
                 {/* if logindata id matches card id, show mark found */}
 
-                <a
+                {item.found ? (
+                  <button className="btn btn-info btn-xs card-link">
+                    Found
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {item.found ? (
+                  <></>
+                ) : (
+                  <a
+                    href={`mailto:${item.email}?subject=${item.title}`}
+                    className="card-link"
+                  >
+                    {/* <a href={`mailto:${item.email}`}> */}
+                    {/* <a href="mailto:`{item.email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
+                    Message {item.user}
+                  </a>
+                )}
+                {/* <a
                   href={`mailto:${item.email}?subject=${item.title}`}
                   className="card-link"
-                >
-                  {/* <a href={`mailto:${item.email}`}> */}
-                  {/* <a href="mailto:`{item.email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
-                  Message {item.user}
-                </a>
+                > */}
+                {/* <a href={`mailto:${item.email}`}> */}
+                {/* <a href="mailto:`{item.email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
+                {/* Message {item.user} */}
+                {/* </a> */}
               </div>
             </div>
           </div>
