@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useGoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
-// import MyItems from "./pages/MyItems";
+import MyItems from "./pages/MyItems";
 import SearchResults from "./pages/SearchResults";
 
 const getAllItemsApi = async () => {
@@ -45,6 +45,8 @@ function App() {
       : null
   );
   const [searchString, setSearchString] = useState("");
+  const [filter, setFilter] = useState("");
+
   const navigate = useNavigate();
 
   const markFoundApi = async (id) => {
@@ -52,7 +54,6 @@ function App() {
     const response = await axios.patch(
       `http://127.0.0.1:5000/items/${id}/mark_found`
     );
-    console.log(response.data.item);
     return response.data.item;
   };
 
@@ -74,9 +75,7 @@ function App() {
 
     const results = await searchApi(searchString);
     setItems(results);
-    // console.log(results);
     navigate("/search");
-    // setSearchString("");
   };
 
   const filterCallback = (filteredArray) => {
@@ -118,6 +117,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("loginData");
     setLoginData(null);
+    navigate("/");
   };
 
   const addUser = (name, email) => {
@@ -142,6 +142,7 @@ function App() {
     const userId = loginData.id;
     const items = await getAllItemsByUserApi(userId);
     setItems(items);
+    setFilter("userItems");
   };
 
   return (
@@ -205,7 +206,7 @@ function App() {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link
-                    to="/itemslist"
+                    to="/myitems"
                     className="nav-link"
                     onClick={getAllItemsByUser}
                   >
@@ -241,10 +242,11 @@ function App() {
                 loginData={loginData}
                 searchString={searchString}
                 updateItem={updateItem}
+                filter={filter}
               />
             }
           />
-          <Route path="/itemslist/:id" element={<Item />} />
+          {/* <Route path="/itemslist/:id" element={<Item />} /> */}
           <Route
             path="/newpostform"
             element={
@@ -254,10 +256,18 @@ function App() {
               />
             }
           />
-          {/* <Route
+          <Route
             path="/myitems"
-            element={<MyItems itemsByUser={itemsByUser} />}
-          ></Route> */}
+            element={
+              <MyItems
+                items={items}
+                loginData={loginData}
+                updateItem={updateItem}
+                filter={filter}
+                filterCallback={filterCallback}
+              />
+            }
+          ></Route>
           <Route
             path="/search"
             element={
@@ -266,6 +276,7 @@ function App() {
                 items={items}
                 searchString={searchString}
                 loginData={loginData}
+                filter={filter}
               />
             }
           ></Route>

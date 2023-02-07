@@ -17,15 +17,29 @@ const searchFilterApi = async (filterData, searchFilter) => {
   return results.data;
 };
 
-const Filter = (props) => {
+const userFilterApi = async (filterData, id) => {
+  const results = await axios.get(
+    `http://127.0.0.1:5000/users/${id}/items?filter=${filterData}`
+  );
+  return results.data;
+};
+
+const Filter = ({ filter, loginData, filterCallback }) => {
   const handleChange = async (e) => {
     const filterData = e.target.value;
-    if (props.searchFilter) {
-      const results = await searchFilterApi(filterData, props.searchFilter);
-      props.filterCallback(results);
-    } else {
-      const results = await filterItemsApi(filterData);
-      props.filterCallback(results);
+    // if (props.searchFilter) {
+    //   const results = await searchFilterApi(filterData, props.searchFilter);
+    //   props.filterCallback(results);
+    // } else {
+    //   const results = await filterItemsApi(filterData);
+    //   props.filterCallback(results);
+    // }
+    if (filter === "userItems") {
+      // console.log(filterData);
+      const results = await userFilterApi(filterData, loginData.id);
+      console.log(results);
+      return filterCallback(results);
+      // console.log(results);
     }
   };
 

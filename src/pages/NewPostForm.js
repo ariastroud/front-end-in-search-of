@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewPostForm = ({ loginData, addPostCallBack }) => {
   const [image, setImage] = useState("");
@@ -13,6 +14,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
     file: "",
     userId: loginData.id,
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setPostData({
@@ -34,6 +36,8 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
       file: "",
       userId: "",
     });
+
+    // navigate("/itemslist");
   };
 
   const uploadImage = async (e) => {
