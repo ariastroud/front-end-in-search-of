@@ -1,16 +1,14 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
-import NewPostForm from "./pages/NewPostForm";
-import ItemsList from "./pages/ItemsList";
-// import Item from "./pages/Item";
-import Item from "./components/Item";
-import axios from "axios";
+import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./pages/Home";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useGoogleLogin } from "@react-oauth/google";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Home from "./pages/Home";
 import MyItems from "./pages/MyItems";
 import SearchResults from "./pages/SearchResults";
+import NewPostForm from "./pages/NewPostForm";
+import ItemsList from "./pages/ItemsList";
 
 const getAllItemsApi = async () => {
   const response = await axios.get("http://localhost:5000/items");
@@ -50,7 +48,6 @@ function App() {
   const navigate = useNavigate();
 
   const markFoundApi = async (id) => {
-    // console.log(id);
     const response = await axios.patch(
       `http://127.0.0.1:5000/items/${id}/mark_found`
     );
@@ -166,45 +163,58 @@ function App() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <form className="form-inline my-2 my-lg-0">
-              <input
-                className="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                onChange={(e) => setSearchString(e.target.value)}
-                name="search"
-                value={searchString}
-              />
-              <button
-                onClick={submitSearch}
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-            <ul className="navbar-nav mr-auto"></ul>
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link
-                  to="/itemslist"
-                  className="nav-link"
-                  onClick={getAllItems}
+          {!loginData ? (
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav mr-auto"></ul>
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <button
+                    onClick={() => login()}
+                    className="btn btn-outline-success my-2 my-sm-0"
+                  >
+                    Sign In
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <form className="form-inline my-2 my-lg-0">
+                <input
+                  className="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  onChange={(e) => setSearchString(e.target.value)}
+                  name="search"
+                  value={searchString}
+                />
+                <button
+                  onClick={submitSearch}
+                  className="btn btn-outline-success my-2 my-sm-0"
+                  type="submit"
                 >
-                  All Items
-                </Link>
-              </li>
-            </ul>
-            {!loginData ? (
-              <button
-                onClick={() => login()}
-                className="btn btn-outline-success my-2 my-sm-0"
-              >
-                Sign In
-              </button>
-            ) : (
+                  Search
+                </button>
+              </form>
+              <ul className="navbar-nav mr-auto"></ul>
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link
+                    to="/itemslist"
+                    className="nav-link"
+                    onClick={getAllItems}
+                  >
+                    All Items
+                  </Link>
+                </li>
+              </ul>
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link
@@ -227,8 +237,8 @@ function App() {
                   Sign Out
                 </button>
               </ul>
-            )}
-          </div>
+            </div>
+          )}
         </nav>
       </div>
 
@@ -248,7 +258,6 @@ function App() {
               />
             }
           />
-          {/* <Route path="/itemslist/:id" element={<Item />} /> */}
           <Route
             path="/newpostform"
             element={
@@ -282,12 +291,6 @@ function App() {
               />
             }
           ></Route>
-          {/* <Route
-            path="/test"
-            element={
-              <SideNav getAllItems={getAllItems} allItemData={allItemData} />
-            }
-          ></Route> */}
         </Routes>
       </div>
     </div>

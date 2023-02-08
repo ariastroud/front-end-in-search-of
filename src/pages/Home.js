@@ -17,7 +17,6 @@ const Home = () => {
             </div>
             <div className="col-sm-6">
               <h1 className="display-4">What are you searching for?</h1>
-              {/* <p className="lead">Search bar? idk</p> */}
               <hr className="my-4 w-50" />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
@@ -25,10 +24,6 @@ const Home = () => {
                 sollicitudin ipsum. Donec sit amet condimentum urna. Aliquam
                 efficitur velit nec eros eleifend.
               </p>
-              {/* <a className="btn btn-primary btn-lg" href="#" role="button">
-              Sign In
-            </a> */}
-              {/* <img className="w-25 d-inline" alt="handbags" src={main} /> */}
             </div>
           </div>
         </div>

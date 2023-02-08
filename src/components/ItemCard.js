@@ -1,10 +1,4 @@
-import Item from "./Item";
-import { Link } from "react-router-dom";
-import axios from "axios";
-
 const ItemCard = ({ items, loginData, updateItem }) => {
-  // console.log(loginData.id);
-  // if (loginData.id)
   return (
     <div className="card-deck row-cols-md-3">
       {items.map((item) => (
@@ -21,12 +15,6 @@ const ItemCard = ({ items, loginData, updateItem }) => {
               <li className="list-group-item">Category: {item.category}</li>
             </ul>
             <div className="card-body">
-              {/* <a href="google.com" className="card-link">
-                  See More
-                </a> */}
-              {/* <Link to={`${item.id}`}>Click</Link> */}
-              {/* <Link to={item.id}>Click</Link> */}
-
               {loginData.id === item.user_id && !item.found ? (
                 <button
                   onClick={() => updateItem(item.id)}
@@ -37,7 +25,6 @@ const ItemCard = ({ items, loginData, updateItem }) => {
               ) : (
                 <></>
               )}
-              {/* if logindata id matches card id, show mark found */}
 
               {item.found ? (
                 <button className="btn btn-info btn-xs card-link">Found</button>
@@ -51,19 +38,9 @@ const ItemCard = ({ items, loginData, updateItem }) => {
                   href={`mailto:${item.email}?subject=${item.title}`}
                   className="card-link"
                 >
-                  {/* <a href={`mailto:${item.email}`}> */}
-                  {/* <a href="mailto:`{item.email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
                   Message {item.user}
                 </a>
               )}
-              {/* <a
-                  href={`mailto:${item.email}?subject=${item.title}`}
-                  className="card-link"
-                > */}
-              {/* <a href={`mailto:${item.email}`}> */}
-              {/* <a href="mailto:`{item.email}`?subject={subject}&body={body}">Click to Send an Email</a> */}
-              {/* Message {item.user} */}
-              {/* </a> */}
             </div>
           </div>
         </div>
