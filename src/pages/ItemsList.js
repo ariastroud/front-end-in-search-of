@@ -7,6 +7,7 @@ const ItemsList = ({
   loginData,
   searchString,
   updateItem,
+  filter,
 }) => {
   return (
     <div className="py-3">
@@ -16,6 +17,7 @@ const ItemsList = ({
             <Filter
               searchFilter={searchString}
               filterCallback={filterCallback}
+              filter={filter}
             />
           ) : (
             <Filter filterCallback={filterCallback} />

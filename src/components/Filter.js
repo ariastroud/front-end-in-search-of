@@ -24,22 +24,18 @@ const userFilterApi = async (filterData, id) => {
   return results.data;
 };
 
-const Filter = ({ filter, loginData, filterCallback }) => {
+const Filter = ({ filter, loginData, filterCallback, searchFilter }) => {
   const handleChange = async (e) => {
     const filterData = e.target.value;
-    // if (props.searchFilter) {
-    //   const results = await searchFilterApi(filterData, props.searchFilter);
-    //   props.filterCallback(results);
-    // } else {
-    //   const results = await filterItemsApi(filterData);
-    //   props.filterCallback(results);
-    // }
     if (filter === "userItems") {
-      // console.log(filterData);
       const results = await userFilterApi(filterData, loginData.id);
-      console.log(results);
       return filterCallback(results);
-      // console.log(results);
+    } else if (filter === "searchItems") {
+      const results = await searchFilterApi(filterData, searchFilter);
+      return filterCallback(results);
+    } else {
+      const results = await filterItemsApi(filterData);
+      return filterCallback(results);
     }
   };
 
@@ -182,19 +178,6 @@ const Filter = ({ filter, loginData, filterCallback }) => {
               Jewelry
             </label>
           </div>
-          {/* <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="filterRadio"
-              id="accessoriesRadio"
-              value="accessories"
-              onChange={handleChange}
-            />
-            <label className="form-check-label" htmlFor="flexRadioDefault1">
-              Accessories
-            </label>
-          </div> */}
           <div className="form-check">
             <input
               className="form-check-input"

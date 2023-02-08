@@ -75,6 +75,7 @@ function App() {
 
     const results = await searchApi(searchString);
     setItems(results);
+    setFilter("searchItems");
     navigate("/search");
   };
 
@@ -136,6 +137,7 @@ function App() {
   const getAllItems = async () => {
     const items = await getAllItemsApi();
     setItems(items);
+    setFilter("defaultFilter");
   };
 
   const getAllItemsByUser = async () => {

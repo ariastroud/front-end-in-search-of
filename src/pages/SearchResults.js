@@ -2,7 +2,6 @@ import Filter from "../components/Filter";
 import ItemCard from "../components/ItemCard";
 
 const SearchResults = (props) => {
-  console.log(props.items);
   return (
     <div className="py-3">
       <div className="row">
@@ -10,6 +9,7 @@ const SearchResults = (props) => {
           <Filter
             searchFilter={props.searchString}
             filterCallback={props.filterCallback}
+            filter={props.filter}
           />
         </div>
         <div className="col-10 px-3 py-2">
