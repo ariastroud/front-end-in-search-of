@@ -24,11 +24,20 @@ const ItemsList = ({
           )}
         </div>
         <div className="col-10 px-3 py-2">
-          <ItemCard
+          {items.length === 0 ? (
+            <div className="px-5 py-3">No matches</div>
+          ) : (
+            <ItemCard
+              items={items}
+              loginData={loginData}
+              // updateItem={updateItem}
+            />
+          )}
+          {/* <ItemCard
             items={items}
             loginData={loginData}
             updateItem={updateItem}
-          />
+          /> */}
         </div>
       </div>
     </div>

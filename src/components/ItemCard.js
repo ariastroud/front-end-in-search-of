@@ -1,4 +1,4 @@
-const ItemCard = ({ items, loginData, updateItem }) => {
+const ItemCard = ({ items, loginData, updateItem, filter }) => {
   return (
     <div className="card-deck row-cols-md-3">
       {items.map((item) => (
@@ -15,7 +15,9 @@ const ItemCard = ({ items, loginData, updateItem }) => {
               <li className="list-group-item">Category: {item.category}</li>
             </ul>
             <div className="card-body">
-              {loginData.id === item.user_id && !item.found ? (
+              {filter === "userItems" &&
+              loginData.id === item.user_id &&
+              !item.found ? (
                 <button
                   onClick={() => updateItem(item.id)}
                   className="btn btn-info btn-xs card-link"

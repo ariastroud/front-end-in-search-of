@@ -27,6 +27,7 @@ const userFilterApi = async (filterData, id) => {
 const Filter = ({ filter, loginData, filterCallback, searchFilter }) => {
   const handleChange = async (e) => {
     const filterData = e.target.value;
+    console.log(filterData);
     if (filter === "userItems") {
       const results = await userFilterApi(filterData, loginData.id);
       return filterCallback(results);
@@ -35,6 +36,7 @@ const Filter = ({ filter, loginData, filterCallback, searchFilter }) => {
       return filterCallback(results);
     } else {
       const results = await filterItemsApi(filterData);
+      console.log(results);
       return filterCallback(results);
     }
   };
