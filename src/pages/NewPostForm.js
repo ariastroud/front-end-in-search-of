@@ -8,18 +8,30 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
     title: "",
     brand: "",
     category: "Choose category...",
-    size: "Choose size...",
+    size: "Select category first",
     description: "",
     file: "",
     userId: loginData.id,
   });
   // const navigate = useNavigate();
 
+  const [category, setCategory] = useState("");
+
   const handleChange = (e) => {
     setPostData({
       ...postData,
       [e.target.name]: e.target.value,
     });
+
+    if (e.target.value === "Clothing") {
+      setCategory("clothing");
+    } else if (e.target.value === "Handbags") {
+      setCategory("handbags");
+    } else if (e.target.value === "Jewelry") {
+      setCategory("jewelry");
+    } else if (e.target.value === "Shoes") {
+      setCategory("shoes");
+    }
   };
 
   const submitPostData = (e) => {
@@ -57,6 +69,89 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
     setPostData({ ...postData, [e.target.name]: file.secure_url });
   };
 
+  let sizeSelect;
+  if (category === "clothing") {
+    sizeSelect = (
+      <div className="form-group">
+        <label htmlFor="exampleFormControlSelect1">Size</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          onChange={handleChange}
+          name="size"
+          value={postData.size}
+        >
+          <option disabled>Choose size...</option>
+          <option>XS (0-2)</option>
+          <option>S (4-6)</option>
+          <option>M (8-10)</option>
+          <option>L (12-14)</option>
+          <option>XL (16)</option>
+          <option>2XL (18-20)</option>
+        </select>
+      </div>
+    );
+  } else if (category === "handbags" || category === "jewelry") {
+    sizeSelect = (
+      <div className="form-group">
+        <label htmlFor="exampleFormControlSelect1">Size</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          onChange={handleChange}
+          name="size"
+          value={postData.size}
+        >
+          <option disabled>Choose size...</option>
+          <option>N/A</option>
+        </select>
+      </div>
+    );
+  } else if (category === "shoes") {
+    sizeSelect = (
+      <div className="form-group">
+        <label htmlFor="exampleFormControlSelect1">Size</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          onChange={handleChange}
+          name="size"
+          value={postData.size}
+        >
+          <option disabled>Choose size...</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+        </select>
+      </div>
+    );
+  } else {
+    sizeSelect = (
+      <div className="form-group">
+        <label htmlFor="exampleFormControlSelect1">Size</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          onChange={handleChange}
+          name="size"
+          value={postData.size}
+        >
+          <option disabled>Select category first</option>
+          {/* <option>N/A</option>
+        <option>XS (0-2)</option>
+        <option>S (4-6)</option>
+        <option>M (8-10)</option>
+        <option>L (12-14)</option>
+        <option>XL (16)</option>
+        <option>2XL (18-20)</option> */}
+        </select>
+      </div>
+    );
+  }
   return (
     <div className="container py-3 w-50">
       <h2>Create new post</h2>
@@ -98,11 +193,11 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
             <option>Clothing</option>
             <option>Handbags</option>
             <option>Jewelry</option>
-            {/* <option>Accessories</option> */}
             <option>Shoes</option>
           </select>
         </div>
-        <div className="form-group">
+        {sizeSelect}
+        {/* <div className="form-group">
           <label htmlFor="exampleFormControlSelect1">Size</label>
           <select
             className="form-control"
@@ -120,7 +215,27 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
             <option>XL (16)</option>
             <option>2XL (18-20)</option>
           </select>
-        </div>
+        </div> */}
+
+        {/* <div className="form-group">
+          <label htmlFor="exampleFormControlSelect1">Size</label>
+          <select
+            className="form-control"
+            id="exampleFormControlSelect1"
+            onChange={handleChange}
+            name="size"
+            value={postData.size}
+          >
+            <option disabled>Choose size...</option>
+            <option>N/A</option>
+            <option>XS (0-2)</option>
+            <option>S (4-6)</option>
+            <option>M (8-10)</option>
+            <option>L (12-14)</option>
+            <option>XL (16)</option>
+            <option>2XL (18-20)</option>
+          </select>
+        </div> */}
         <div className="form-group">
           <label htmlFor="exampleFormControlTextarea1">Description</label>
           <textarea
