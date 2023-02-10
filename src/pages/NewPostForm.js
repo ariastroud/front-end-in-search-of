@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const NewPostForm = ({ loginData, addPostCallBack }) => {
+const NewPostForm = ({ loginData, addPostCallBack, getAllItemsByUser }) => {
   const [image, setImage] = useState("");
   const [postData, setPostData] = useState({
     title: "",
@@ -234,9 +235,13 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
         {alert ? (
           <div className="alert alert-success" role="alert">
             Item posted!{" "}
-            <a href="http://localhost:3000/myitems" className="alert-link">
+            <Link
+              to="/myitems"
+              className="alert-link"
+              onClick={getAllItemsByUser}
+            >
               Take me to my items!
-            </a>
+            </Link>
           </div>
         ) : (
           <button type="submit" className="btn btn-dark">

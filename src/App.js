@@ -264,6 +264,7 @@ function App() {
               <NewPostForm
                 loginData={loginData}
                 addPostCallBack={addPostCallBack}
+                getAllItemsByUser={getAllItemsByUser}
               />
             }
           />
