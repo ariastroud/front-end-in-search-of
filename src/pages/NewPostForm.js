@@ -239,7 +239,7 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
             </a>
           </div>
         ) : (
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-dark">
             Post
           </button>
         )}

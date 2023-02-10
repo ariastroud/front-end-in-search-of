@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 import Home from "./pages/Home";
 import MyItems from "./pages/MyItems";
