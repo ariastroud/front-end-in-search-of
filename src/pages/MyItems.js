@@ -23,11 +23,6 @@ const MyItems = ({ items, filterCallback, loginData, updateItem, filter }) => {
               filter={filter}
             />
           )}
-          {/* <ItemCard
-            items={items}
-            loginData={loginData}
-            updateItem={updateItem}
-          /> */}
         </div>
       </div>
     </div>

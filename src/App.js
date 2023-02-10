@@ -84,7 +84,6 @@ function App() {
     const response = await addPostApi(postData);
     const newPost = [...items];
     newPost.push({ ...response.data.item });
-
     setItems(newPost);
   };
 

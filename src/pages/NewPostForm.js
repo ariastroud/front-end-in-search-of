@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 const NewPostForm = ({ loginData, addPostCallBack }) => {
   const [image, setImage] = useState("");
@@ -13,9 +12,9 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
     file: "",
     userId: loginData.id,
   });
-  // const navigate = useNavigate();
 
   const [category, setCategory] = useState("");
+  const [alert, setAlert] = useState("");
 
   const handleChange = (e) => {
     setPostData({
@@ -47,8 +46,8 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
       file: "",
       userId: "",
     });
-
-    // navigate("/itemslist");
+    setImage("");
+    setAlert("postSubmitted");
   };
 
   const uploadImage = async (e) => {
@@ -141,13 +140,6 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
           value={postData.size}
         >
           <option disabled>Select category first</option>
-          {/* <option>N/A</option>
-        <option>XS (0-2)</option>
-        <option>S (4-6)</option>
-        <option>M (8-10)</option>
-        <option>L (12-14)</option>
-        <option>XL (16)</option>
-        <option>2XL (18-20)</option> */}
         </select>
       </div>
     );
@@ -155,13 +147,14 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
   return (
     <div className="container py-3 w-50">
       <h2>Create new post</h2>
-      <form>
+      <form onSubmit={submitPostData}>
         <div className="form-group">
-          <label htmlFor="exampleFormControlInput1">Title</label>
+          <label htmlFor="formTitle">Title</label>
           <input
             type="text"
+            required
             className="form-control"
-            id="exampleFormControlInput1"
+            id="formTitle"
             onChange={handleChange}
             name="title"
             value={postData.title}
@@ -169,11 +162,12 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="exampleFormControlInput1">Brand</label>
+          <label htmlFor="formBrand">Brand</label>
           <input
             type="text"
+            required
             className="form-control"
-            id="exampleFormControlInput1"
+            id="formBrand"
             onChange={handleChange}
             name="brand"
             value={postData.brand}
@@ -181,10 +175,10 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="exampleFormControlSelect1">Category</label>
+          <label htmlFor="formCategory">Category</label>
           <select
             className="form-control"
-            id="exampleFormControlSelect1"
+            id="formCategory"
             onChange={handleChange}
             name="category"
             value={postData.category}
@@ -197,50 +191,12 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
           </select>
         </div>
         {sizeSelect}
-        {/* <div className="form-group">
-          <label htmlFor="exampleFormControlSelect1">Size</label>
-          <select
-            className="form-control"
-            id="exampleFormControlSelect1"
-            onChange={handleChange}
-            name="size"
-            value={postData.size}
-          >
-            <option disabled>Choose size...</option>
-            <option>N/A</option>
-            <option>XS (0-2)</option>
-            <option>S (4-6)</option>
-            <option>M (8-10)</option>
-            <option>L (12-14)</option>
-            <option>XL (16)</option>
-            <option>2XL (18-20)</option>
-          </select>
-        </div> */}
-
-        {/* <div className="form-group">
-          <label htmlFor="exampleFormControlSelect1">Size</label>
-          <select
-            className="form-control"
-            id="exampleFormControlSelect1"
-            onChange={handleChange}
-            name="size"
-            value={postData.size}
-          >
-            <option disabled>Choose size...</option>
-            <option>N/A</option>
-            <option>XS (0-2)</option>
-            <option>S (4-6)</option>
-            <option>M (8-10)</option>
-            <option>L (12-14)</option>
-            <option>XL (16)</option>
-            <option>2XL (18-20)</option>
-          </select>
-        </div> */}
         <div className="form-group">
-          <label htmlFor="exampleFormControlTextarea1">Description</label>
+          <label htmlFor="formDescription">Description</label>
           <textarea
+            required
             className="form-control"
-            id="exampleFormControlTextarea1"
+            id="formDescription"
             rows="3"
             onChange={handleChange}
             name="description"
@@ -249,13 +205,14 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
           ></textarea>
         </div>
         <div className="form-group">
-          <label htmlFor="exampleFormControlFile1">
-            Upload Image (.jpg, .jpeg, .png)
+          <label htmlFor="formImage">
+            Please wait while the image uploads...
           </label>
           <input
+            required
             type="file"
             className="form-control-file"
-            id="exampleFormControlFile1"
+            id="formImage"
             name="file"
             onChange={uploadImage}
           />
@@ -272,11 +229,20 @@ const NewPostForm = ({ loginData, addPostCallBack }) => {
             />
           </div>
         ) : (
-          <p>Please wait while file is uploading...</p>
+          <></>
         )}
-        <button onClick={submitPostData} className="btn btn-primary">
-          Post
-        </button>
+        {alert ? (
+          <div className="alert alert-success" role="alert">
+            Item posted!{" "}
+            <a href="http://localhost:3000/myitems" className="alert-link">
+              Take me to my items!
+            </a>
+          </div>
+        ) : (
+          <button type="submit" className="btn btn-primary">
+            Post
+          </button>
+        )}
       </form>
     </div>
   );

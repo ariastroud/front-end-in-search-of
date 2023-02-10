@@ -6,7 +6,6 @@ const ItemsList = ({
   filterCallback,
   loginData,
   searchString,
-  updateItem,
   filter,
 }) => {
   return (
@@ -27,17 +26,8 @@ const ItemsList = ({
           {items.length === 0 ? (
             <div className="px-5 py-3">No matches</div>
           ) : (
-            <ItemCard
-              items={items}
-              loginData={loginData}
-              // updateItem={updateItem}
-            />
+            <ItemCard items={items} loginData={loginData} />
           )}
-          {/* <ItemCard
-            items={items}
-            loginData={loginData}
-            updateItem={updateItem}
-          /> */}
         </div>
       </div>
     </div>

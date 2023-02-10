@@ -24,7 +24,6 @@ const SearchResults = ({
           ) : (
             <ItemCard items={items} loginData={loginData} />
           )}
-          {/* <ItemCard items={items} loginData={loginData} /> */}
         </div>
       </div>
     </div>
