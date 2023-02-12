@@ -10,31 +10,14 @@ import MyItems from "./pages/MyItems";
 import SearchResults from "./pages/SearchResults";
 import NewPostForm from "./pages/NewPostForm";
 import ItemsList from "./pages/ItemsList";
-
-const getAllItemsApi = async () => {
-  const response = await axios.get("http://localhost:5000/items");
-  return response.data;
-};
-
-const getAllItemsByUserApi = async (id) => {
-  const response = await axios.get(`http://127.0.0.1:5000/users/${id}/items`);
-  return response.data;
-};
-
-const addPostApi = async (postData) => {
-  const response = await axios.post(
-    `http://127.0.0.1:5000/users/${postData.userId}/items`,
-    postData
-  );
-  return response;
-};
-
-const searchApi = async (searchParams) => {
-  const response = await axios.get("http://localhost:5000/items/search", {
-    params: { title: searchParams },
-  });
-  return response.data;
-};
+import {
+  getAllItemsApi,
+  getAllItemsByUserApi,
+  addPostApi,
+  searchApi,
+  markFoundApi,
+  addUser,
+} from "./api/ApiFunctions";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -47,13 +30,6 @@ function App() {
   const [filter, setFilter] = useState("");
 
   const navigate = useNavigate();
-
-  const markFoundApi = async (id) => {
-    const response = await axios.patch(
-      `http://127.0.0.1:5000/items/${id}/mark_found`
-    );
-    return response.data.item;
-  };
 
   const updateItem = async (id) => {
     const newItem = await markFoundApi(id);
@@ -116,15 +92,6 @@ function App() {
     localStorage.removeItem("loginData");
     setLoginData(null);
     navigate("/");
-  };
-
-  const addUser = (name, email) => {
-    const requestBody = { name: name, email: email };
-    return axios
-      .post(`http://localhost:5000/users`, requestBody)
-      .then((response) => {
-        return response.data[0];
-      });
   };
 
   useEffect(() => {
