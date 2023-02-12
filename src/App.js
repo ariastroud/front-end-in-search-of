@@ -115,7 +115,7 @@ function App() {
     <div>
       <div>
         <nav
-          className="navbar navbar-expand-lg navbar-light px-3 py-2"
+          className="navbar navbar-expand-lg navbar-light px-3 py-2 bg-light"
           // style={{ backgroundColor: "#e1eedd" }}
         >
           <Link to="/" className="link-dark text-decoration-none navbar-brand">
