@@ -40,60 +40,7 @@ const ItemCard = ({ items, loginData, updateItem, filter }) => {
                   </a>
                 </li>
               )}
-              {/* {item.found ? (
-                <button className="btn btn-info btn-xs card-link">Found</button>
-              ) : (
-                <button className="btn btn-info btn-xs card-link">
-                  <a
-                    href={`mailto:${item.email}?subject=${item.title}`}
-                    className="card-link"
-                  >
-                    Message {item.user}
-                  </a>
-                </button>
-              )} */}
-              {/* {item.found ? (
-                <></>
-              ) : (
-                <a
-                  href={`mailto:${item.email}?subject=${item.title}`}
-                  className="card-link"
-                >
-                  Message {item.user}
-                </a>
-              )} */}
             </ul>
-
-            {/* <div className="card-body"> */}
-            {/* {filter === "userItems" &&
-              loginData.id === item.user_id &&
-              !item.found ? (
-                <button
-                  onClick={() => updateItem(item.id)}
-                  className="btn btn-info btn-xs card-link"
-                >
-                  Mark Found
-                </button>
-              ) : (
-                <></>
-              )} */}
-
-            {/* {item.found ? (
-                <button className="btn btn-info btn-xs card-link">Found</button>
-              ) : (
-                <></>
-              )}
-              {item.found ? (
-                <></>
-              ) : (
-                <a
-                  href={`mailto:${item.email}?subject=${item.title}`}
-                  className="card-link"
-                >
-                  Message {item.user}
-                </a>
-              )} */}
-            {/* </div> */}
           </div>
         </div>
       ))}

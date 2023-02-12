@@ -1,28 +1,8 @@
-import axios from "axios";
-
-const filterItemsApi = async (filterData) => {
-  const results = await axios.get(
-    `http://localhost:5000/items?filter=${filterData}`
-  );
-  return results.data;
-};
-
-const searchFilterApi = async (filterData, searchFilter) => {
-  const results = await axios.get("http://localhost:5000/items/search", {
-    params: {
-      title: searchFilter,
-      filter: filterData,
-    },
-  });
-  return results.data;
-};
-
-const userFilterApi = async (filterData, id) => {
-  const results = await axios.get(
-    `http://127.0.0.1:5000/users/${id}/items?filter=${filterData}`
-  );
-  return results.data;
-};
+import {
+  filterItemsApi,
+  searchFilterApi,
+  userFilterApi,
+} from "../api/ApiFunctions";
 
 const Filter = ({ filter, loginData, filterCallback, searchFilter }) => {
   const handleChange = async (e) => {

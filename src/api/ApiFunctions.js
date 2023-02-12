@@ -47,3 +47,30 @@ export const addUser = (name, email) => {
       return response.data[0];
     });
 };
+
+export const filterItemsApi = async (filterData) => {
+  const results = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/items?filter=${filterData}`
+  );
+  return results.data;
+};
+
+export const searchFilterApi = async (filterData, searchFilter) => {
+  const results = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/items/search`,
+    {
+      params: {
+        title: searchFilter,
+        filter: filterData,
+      },
+    }
+  );
+  return results.data;
+};
+
+export const userFilterApi = async (filterData, id) => {
+  const results = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/users/${id}/items?filter=${filterData}`
+  );
+  return results.data;
+};
