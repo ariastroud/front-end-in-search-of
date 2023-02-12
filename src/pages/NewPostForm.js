@@ -8,7 +8,7 @@ const NewPostForm = ({ loginData, addPostCallBack, getAllItemsByUser }) => {
     title: "",
     brand: "",
     category: "Choose category...",
-    size: "Select category first",
+    size: "",
     description: "",
     file: "",
     userId: loginData.id,
@@ -79,15 +79,17 @@ const NewPostForm = ({ loginData, addPostCallBack, getAllItemsByUser }) => {
           id="exampleFormControlSelect1"
           onChange={handleChange}
           name="size"
-          value={postData.size}
+          defaultValue={"default"}
         >
-          <option disabled>Choose size...</option>
-          <option>XS (0-2)</option>
-          <option>S (4-6)</option>
-          <option>M (8-10)</option>
-          <option>L (12-14)</option>
-          <option>XL (16)</option>
-          <option>2XL (18-20)</option>
+          <option value={"default"} disabled>
+            Choose size...
+          </option>
+          <option value={"XS (0-2)"}>XS (0-2)</option>
+          <option value={"S (4-6)"}>S (4-6)</option>
+          <option value={"M (8-10)"}>M (8-10)</option>
+          <option value={"L (12-14)"}>L (12-14)</option>
+          <option value={"XL (16)"}>XL (16)</option>
+          <option value={"2XL (18-20)"}>2XL (18-20)</option>
         </select>
       </div>
     );
@@ -100,10 +102,12 @@ const NewPostForm = ({ loginData, addPostCallBack, getAllItemsByUser }) => {
           id="exampleFormControlSelect1"
           onChange={handleChange}
           name="size"
-          value={postData.size}
+          defaultValue={"default"}
         >
-          <option disabled>Choose size...</option>
-          <option>N/A</option>
+          <option value={"default"} disabled>
+            Choose size...
+          </option>
+          <option value={"N/A"}>N/A</option>
         </select>
       </div>
     );
@@ -116,33 +120,36 @@ const NewPostForm = ({ loginData, addPostCallBack, getAllItemsByUser }) => {
           id="exampleFormControlSelect1"
           onChange={handleChange}
           name="size"
-          value={postData.size}
+          defaultValue={"default"}
         >
-          <option disabled>Choose size...</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
+          <option disabled value={"default"}>
+            Choose size...
+          </option>
+          <option value={"5"}>5</option>
+          <option value={"6"}>6</option>
+          <option value={"7"}>7</option>
+          <option value={"8"}>8</option>
+          <option value={"9"}>9</option>
+          <option value={"10"}>10</option>
+          <option value={"11"}>11</option>
         </select>
       </div>
     );
   } else {
     sizeSelect = (
-      <div className="form-group">
-        <label htmlFor="exampleFormControlSelect1">Size</label>
-        <select
-          className="form-control"
-          id="exampleFormControlSelect1"
-          onChange={handleChange}
-          name="size"
-          value={postData.size}
-        >
-          <option disabled>Select category first</option>
-        </select>
-      </div>
+      <></>
+      // <div className="form-group">
+      //   <label htmlFor="exampleFormControlSelect1">Size</label>
+      //   <select
+      //     className="form-control"
+      //     id="exampleFormControlSelect1"
+      //     onChange={handleChange}
+      //     name="size"
+      //     value={postData.size}
+      //   >
+      //     <option disabled>Select category first</option>
+      //   </select>
+      // </div>
     );
   }
   return (

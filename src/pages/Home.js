@@ -3,7 +3,7 @@ import main from "../assets/camila-damasio-mWYhrOiAgmA-unsplash.jpg";
 
 const Home = () => {
   return (
-    <div className="py-3">
+    <div className="jumbotronContainer py-0">
       <div className="jumbotron">
         <div className="container">
           <div className="row">

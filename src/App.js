@@ -114,7 +114,10 @@ function App() {
   return (
     <div>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 py-2">
+        <nav
+          className="navbar navbar-expand-lg navbar-light px-3 py-2"
+          // style={{ backgroundColor: "#e1eedd" }}
+        >
           <Link to="/" className="link-dark text-decoration-none navbar-brand">
             In Search Of
           </Link>
