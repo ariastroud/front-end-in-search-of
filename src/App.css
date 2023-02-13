@@ -1,21 +1,17 @@
-.btn-outline-success {
+.btn-light {
+    background-color: #9AB6DD;
+    color: white;
+    border-color: #9AB6DD;
+}
+
+.btn-light:hover {
     background-color: white;
-    color: #de5499;
-    border-color: #de5499;
+    border-color: #9AB6DD;
+    color: #9AB6DD;
 }
-
-.btn-outline-success:hover {
-    background-color: #de5499;
-    border-color: #de5499;
-}
-
-/* .navbar {
-    background-color: #f2ebe9;
-} */
 
 .jumbotronContainer {
     height: 50vh;
-    /* border: 1px solid blue; */
     background-color: #EAECEF;
     height: 100vh;
 }

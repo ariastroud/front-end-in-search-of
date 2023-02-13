@@ -114,10 +114,7 @@ function App() {
   return (
     <div>
       <div>
-        <nav
-          className="navbar navbar-expand-lg navbar-light px-3 py-2 bg-light"
-          // style={{ backgroundColor: "#e1eedd" }}
-        >
+        <nav className="navbar navbar-light navbar-expand-lg px-3 py-2 bg-light">
           <Link to="/" className="link-dark text-decoration-none navbar-brand">
             In Search Of
           </Link>
@@ -143,7 +140,7 @@ function App() {
                 <li className="nav-item">
                   <button
                     onClick={() => login()}
-                    className="btn btn-outline-success my-2 my-sm-0"
+                    className="btn btn-light my-2 my-sm-0"
                   >
                     Sign In
                   </button>
@@ -167,7 +164,7 @@ function App() {
                 />
                 <button
                   onClick={submitSearch}
-                  className="btn btn-outline-success my-2 my-sm-0"
+                  className="btn btn-light my-2 my-sm-0"
                   type="submit"
                 >
                   Search
@@ -202,7 +199,7 @@ function App() {
                 </li>
                 <button
                   onClick={() => handleLogout()}
-                  className="btn btn-outline-success my-2 my-sm-0"
+                  className="btn btn-light my-2 my-sm-0"
                 >
                   Sign Out
                 </button>
